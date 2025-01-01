@@ -1,4 +1,4 @@
-use anyhow::{Result, Context};
+use anyhow::{Context, Result};
 use glob::glob;
 use libflate::gzip::{EncodeOptions, Encoder, HeaderBuilder};
 use rayon::prelude::*;
@@ -100,10 +100,19 @@ fn wasm_opt(wasm: &[u8]) -> Result<Vec<u8>> {
     let outfile = tmp_dir.path().join("output.wasm");
     std::fs::write(&infile, wasm).context("writing input file")?;
     let output = std::process::Command::new("wasm-opt")
-        .args(["-Oz", "-o", outfile.as_os_str().to_str().unwrap(), infile.as_os_str().to_str().unwrap()])
-        .output().context("spawning wasm-opt")?;
+        .args([
+            "-Oz",
+            "-o",
+            outfile.as_os_str().to_str().unwrap(),
+            infile.as_os_str().to_str().unwrap(),
+        ])
+        .output()
+        .context("spawning wasm-opt")?;
     if !output.status.success() {
-        anyhow::bail!("wasm-opt failed with stderr: {}", std::str::from_utf8(&output.stderr)?);
+        anyhow::bail!(
+            "wasm-opt failed with stderr: {}",
+            std::str::from_utf8(&output.stderr)?
+        );
     }
     let output = std::fs::read(outfile).context("reading output file")?;
     Ok(output)

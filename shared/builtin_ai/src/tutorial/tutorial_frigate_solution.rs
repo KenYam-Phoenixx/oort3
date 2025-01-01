@@ -91,4 +91,3 @@ fn lead_target(target_position: Vec2, target_velocity: Vec2) -> f64 {
     let predicted_dp = dp + dv * dp.length() / 1000.0;
     predicted_dp.angle()
 }
-

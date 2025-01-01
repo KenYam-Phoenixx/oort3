@@ -81,14 +81,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     if args.json {
         let res = results_per_opponent
             .iter()
-            .map(|(p, r)| json!({
-                "opponent": p.name,
-                "wins": r.team0_wins,
-                "losses": r.team1_wins,
-                "draws": r.draws,
-                "times": r.times,
-                "average_time": r.times.iter().sum::<f64>() / r.times.len() as f64,
-            }))
+            .map(|(p, r)| {
+                json!({
+                    "opponent": p.name,
+                    "wins": r.team0_wins,
+                    "losses": r.team1_wins,
+                    "draws": r.draws,
+                    "times": r.times,
+                    "average_time": r.times.iter().sum::<f64>() / r.times.len() as f64,
+                })
+            })
             .collect::<Vec<_>>();
         serde_json::to_writer(std::io::stdout(), &res)?;
         return Ok(());
