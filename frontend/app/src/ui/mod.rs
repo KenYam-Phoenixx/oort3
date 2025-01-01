@@ -267,10 +267,10 @@ impl UI {
         if self.status == Status::Running
             && (!self.paused
                 || self.steps_forward > 0
-                || self.steps_backward > 0
                 || fast_forward
                 || self.slowmo
-                || self.snapshot.is_none())
+                || self.snapshot.is_none()) ||
+                self.steps_backward > 0
         {
             let dt = std::time::Duration::from_secs_f64(simulation::PHYSICS_TICK_LENGTH);
             if fast_forward {
