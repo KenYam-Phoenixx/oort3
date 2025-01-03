@@ -13,7 +13,6 @@ impl Ship {
 
     pub fn tick(&mut self) {
         let dp = self.target - position();
-        draw_line(position(), self.target, 0x880000);
         let err = velocity().normalize() - dp.normalize();
         let acc =
             dp.normalize() * max_forward_acceleration() - err * 10.0 * max_lateral_acceleration();
