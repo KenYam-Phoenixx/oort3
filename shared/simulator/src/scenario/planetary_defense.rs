@@ -96,6 +96,7 @@ impl Scenario for PlanetaryDefense {
                     missile(1)
                 };
                 ship_data.ttl = None;
+                ship_data.radars.clear();
                 ship::create(
                     sim,
                     vector![
