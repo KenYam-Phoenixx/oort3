@@ -1,3 +1,5 @@
+### 0.84.0 - 2025-01-03
+
 - Added the ability to rewind time, very useful for debugging AIs (by twof).
 
 ### 0.83.2 - 2024-12-01
